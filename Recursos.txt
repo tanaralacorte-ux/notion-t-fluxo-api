@@ -1,0 +1,87 @@
+F:
+
+cd "01. Projetos (projetos ativos)\Agente GPT - Automatização\T_Fluxo_v2"
+
+node server.js
+
+---------------------------------
+$body = @{
+  projeto = @{
+    nome = "Executar tarefa_2"
+    dataInicioProjeto = "2026-04-17"
+  }
+  tarefas = @(
+    @{
+      nome = "Planejar projeto_2"
+      fase = "Planejamento"
+      tipo = "estrategica"
+      tempo = @{
+        otimista = 1
+        provavel = 2
+        pessimista = 3
+      }
+      dependencias = @()
+    },
+    @{
+      nome = "Executar tarefa_2"
+      fase = "Execucao"
+      tipo = "operacional"
+      tempo = @{
+        otimista = 2
+        provavel = 3
+        pessimista = 4
+      }
+      dependencias = @("Planejar projeto_2")
+    }
+  )
+} | ConvertTo-Json -Depth 10
+
+Invoke-RestMethod -Uri "http://localhost:3000/executar-projeto" `
+  -Method POST `
+  -Body $body `
+  -ContentType "application/json"
+
+_________________________________________________
+
+
+🔍 Como pegar esses valores
+1. TOKEN
+Vá em: https://www.notion.so/my-integrations
+Crie uma integração
+Copie o Internal Integration Token
+2. DATABASE ID (Tarefas)
+
+Na URL da sua tabela:
+
+https://www.notion.so/xxxxx?v=yyyy
+
+👉 o ID é o xxxxx
+
+Exemplo:
+
+abc123def456...
+
+______________________________________________
+
+⚠️ Muito importante
+
+Você precisa compartilhar a database com a integração:
+
+👉 Dentro do Notion:
+
+Abra a database "Tarefas"
+Clique em Share
+Adicione sua integração
+
+projetos:
+https://www.notion.so/3417d11ee76e800da320c4952c33b2ed?v=3417d11ee76e81cc9d21000cc8ea01ba
+
+tarefas:
+https://www.notion.so/3407d11ee76e80a8bbaff9d023050bbf?v=3407d11ee76e8028aeb4000ca48259cf
+
+_______________________________________________________
+
+evoluir para inteligência (priorização, alertas, otimização)
+
+
+
